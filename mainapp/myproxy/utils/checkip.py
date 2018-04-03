@@ -14,7 +14,7 @@ class CheckIp():
     def _get_loacl(self):
 
         req = requests.get(self.http_check_url)
-        self.local = self.
+        self.local = self._extract_ip(req.text)
 
     def _extract_ip(self, page):
         pattern = re.compile(r'<body>Current IP Address:(\d+.\d+.\d+.\d+)<body>')
@@ -23,3 +23,37 @@ class CheckIp():
             return res[0]
 
     def _extract_ip_2(self,dic):
+
+        try:
+            proxy = dic.get('http')
+        except:
+            proxy = dic.get('https')
+
+        ip = proxy.split('//')[1].split(':')[0]
+        return ip
+
+    def check(self, proxy, type, is_https=False):
+
+        if is_https:
+            urls = self.https_check_urls
+
+        else:
+            urls = self.http_check_urls
+
+        try:
+            req = requests.get(url=urls[0], proxy=proxy, timeout=2)
+            assert req.status_code == 200
+            res = self._extract_ip(req.text)
+            assert bool(res) == True
+        except:
+            return False
+
+        for url in urls[1:]:
+
+            try:
+                req = requests.get(url=url, proxy=proxy, timeout=2)
+                assert req.status_code == 200
+
+            except Exception as e:
+                return False
+        return True

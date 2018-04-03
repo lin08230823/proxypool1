@@ -3,8 +3,10 @@ import requests
 import time
 from selenium import webdriver
 from ..models import Proxy
+from ..utils.checkip import CheckIp
 
 
+checkip = CheckIp()
 
 class GeneralMethods():
 
