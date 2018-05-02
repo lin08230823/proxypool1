@@ -6,7 +6,6 @@ urlpatterns = [
     url(r'^manage/$',views.manage,name='manage'),
     url(r'get/$',views.get,name='get'),
     url(r'work/$',views.work,name='work'),
-
     url(r'api-ins/$',views.api_ins,name='api'),
     url(r'req/$',views.judge_request,name='req')
    ]
