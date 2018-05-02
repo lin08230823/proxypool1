@@ -10,7 +10,7 @@ checkip = CheckIp()
 def verify_all():
 
 
-    all_ip = Proxy.objects.filter(failed_time__lte=5).order_by("last_modified_time")
+    all_ip = Proxy.objects.filter(failed_time__lte=2).order_by("last_modified_time")
 
     count = len(all_ip)
    # print(count)
@@ -21,7 +21,7 @@ def verify_all():
     valid_count = 0
     invalid_count = 0
 
-    for ip in choose_ip:
+    for ip in all_ip:
         proxy = {}
         is_https = False
         #print(ip.head.lower())

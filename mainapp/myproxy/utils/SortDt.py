@@ -15,7 +15,7 @@ def deduplicate():
     return count
 
 def delete():
-    all_ip = Proxy.objects.filter(failed_time__gte=5)
+    all_ip = Proxy.objects.filter(failed_time__gte=2)
     all_ip.delete()
 
     return len(all_ip)

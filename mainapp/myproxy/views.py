@@ -160,7 +160,11 @@ def judge_request(request):
 
         addrins.req_count += 1
         # diff_timedelta = datetime.now(timezone.utc) - addrins.last_modified_time
-        diff_timedelta = datetime.now() - addrins.last_modified_time
+        print(datetime.now(),addrins.created_time)
+        try:
+            diff_timedelta = datetime.now(timezone.utc) - addrins.last_modified_time
+        except:
+            diff_timedelta = datetime.now(timezone.utc) - addrins.created_time
         # print(diff_timedelta)
         diff = diff_timedelta.seconds
         # print(diff)
