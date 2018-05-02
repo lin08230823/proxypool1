@@ -21,10 +21,10 @@ def verify_all():
     valid_count = 0
     invalid_count = 0
 
-    for ip in all_ip:
+    for ip in choose_ip:
         proxy = {}
         is_https = False
-        print(ip.head.lower())
+        #print(ip.head.lower())
         if ip.head.lower() == 'http,https':
             verify_head(ip)
 

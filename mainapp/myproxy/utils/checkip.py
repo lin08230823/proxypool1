@@ -58,7 +58,6 @@ class CheckIp():
                 req = requests.get(url=url, proxies=proxy, timeout=2)
                 assert req.status_code == 200
 
-            except Exception as e:
-                print(e)
+            except:
                 return False
         return True
