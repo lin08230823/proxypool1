@@ -2,10 +2,10 @@
 import requests
 import time
 from selenium import webdriver
-from ..models import Proxy
-from ..utils.checkip import CheckIp
+from myproxy.models import Proxy
+from myproxy.utils.checkip import CheckIp
 
-
+# 初始化
 checkip = CheckIp()
 
 class GeneralMethods():
@@ -14,15 +14,17 @@ class GeneralMethods():
 
         self.all_items = Proxy.objects.all()
 
-    def save_proxy(self,resource,ip,port,head,district='其他',http_type='0'):
-        '''verifies and saves a IP
+    def save_proxy(self,resource,ip,port,head,district='其他',http_type='O'):
+        '''Verifies and saves a IP
 
-            resource: which website this IP comes from
-            ip: IP in string
-            port: IP port
-            head: IP head, http or https
-            district: where this IP's location'''
-        # 查重
+        resource: which website this IP comes form
+        ip: IP in string
+        port: IP port
+        head: IP head, http or https
+        district: where this IP's location
+        http_type:  which type this IP is, 'O' stands for 其他 , 'G' for 高匿， ‘T’ for 透明
+
+        '''
         try:
             query = self.all_items.get(ip=ip)
             return

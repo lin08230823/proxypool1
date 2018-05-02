@@ -7,8 +7,8 @@ class CheckIp():
     def __init__(self):
         self.local = ''
         self.http_check_url = 'http://ddns.oray.com/checkip'
-        self.http_check_urls = ['http://ddns.oray.com/checkip','www.baidu.com','http://www.sina.com.cn','http://www.sohu.com']
-        self.https_check_urls = ['https://ddns.oray.com/checkip', 'https://www.douban.com','https://www.tmall.com', 'https://www.jd.com']
+        self.http_check_urls = ['http://ddns.oray.com/checkip', 'http://www.baidu.com', 'http://www.sina.com.cn', 'http://www.sohu.com']
+        self.https_check_urls = ['https://ddns.oray.com/checkip', 'https://www.douban.com' ,'https://www.tmall.com', 'https://www.jd.com']
 
 
     def _get_loacl(self):
@@ -17,7 +17,7 @@ class CheckIp():
         self.local = self._extract_ip(req.text)
 
     def _extract_ip(self, page):
-        pattern = re.compile(r'<body>Current IP Address:(\d+.\d+.\d+.\d+)<body>')
+        pattern = re.compile(r'<body>Current IP Address: (\d+.\d+.\d+.\d+)</body>')
         res = re.findall(pattern=pattern, string=page)
         if len(res) >= 1:
             return res[0]
@@ -41,19 +41,24 @@ class CheckIp():
             urls = self.http_check_urls
 
         try:
-            req = requests.get(url=urls[0], proxy=proxy, timeout=2)
+            #print(urls[0],proxy)
+            req = requests.get(url=urls[0], proxies=proxy, timeout=2)
+            #print(req.text)
             assert req.status_code == 200
             res = self._extract_ip(req.text)
+            #print(res)
             assert bool(res) == True
         except:
+
             return False
 
         for url in urls[1:]:
 
             try:
-                req = requests.get(url=url, proxy=proxy, timeout=2)
+                req = requests.get(url=url, proxies=proxy, timeout=2)
                 assert req.status_code == 200
 
             except Exception as e:
+                print(e)
                 return False
         return True

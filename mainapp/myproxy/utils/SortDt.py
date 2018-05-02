@@ -1,4 +1,4 @@
-from ..models import Proxy
+from myproxy.models import Proxy
 
 def deduplicate():
 
@@ -6,6 +6,7 @@ def deduplicate():
     list_ip = []
     count = 0
     for ip in all_ip:
+        print(ip.ip)
         if ip.ip in list_ip:
             count += 1
             ip.delete()
