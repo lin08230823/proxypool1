@@ -105,3 +105,43 @@
 清除重复的 IP
 
 删除连续验证失败超过 2 次的 IP
+### API 提取 IP 接口
+
+#### API 提取 url
+
+- 默认返回 5 个，最多 20；
+- 请求频率为 3 秒一次，频繁请求不会返回内容；
+- 为提高可用率，API 接口提取的 IP 验证次数大于 2
+
+运行项目
+
+`$ python manage.py runserver`
+
+API 地址
+
+http://127.0.0.1:8000/proxy/get/
+
+
+
+#### 参数
+
+| name      | type | Description | Optional | example | Remarks |
+| :-------- | --------:| :------: | :------: | :------: | :------: |
+| num    |   int |  IP 数量  |   可选 |  10  |每次最多20  | 默认 5 个 |
+| v_num    |   int |  验证通过次数  |   可选 |  5  |通过次数越多，IP越稳定|
+| type    |   str |  ip类型  |   可选 |  O  |  G-'高匿',T-'透明',O-'其他'|
+| head    |   str |  http 或者 https  |   可选 |  https  |  默认为 http|
+| loc    |   str |  地区  |   可选 |  上海  |尽量以省市一级的地名查询  |
+
+示例: http://127.0.0.1:8000/proxy/get/?num=10&v_num=5&head=https&loc=上海
+
+
+说明: 提取10个ip , 通过验证次数大于等于 2，https 类型，ip坐标上海
+
+### 查看数据库情况
+
+#### django自带的admin
+
+启动 django 项目之后，进入网页
+
+http://127.0.0.1:8000/proxy/admin
